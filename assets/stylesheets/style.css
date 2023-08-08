@@ -1,0 +1,43 @@
+/* Color Pallet obtained from:
+https://colorhunt.co/palette/eb455ffcffe7bad7e92b3467 */
+:root {
+    --retrored: #EB455F;
+    --retrotan: #FCFFE7;
+    --retrolightblue: #BAD7E9;
+    --retroblue:#2B3467;
+  } 
+  
+body{
+    background-color: var(--retrotan);
+    color: var(--retroblue);
+    font-family: 'Roboto Flex', sans-serif;
+    height: 100vh;
+}
+
+
+.title {
+    font-size: 60px;
+    background-color: var(--retroblue);
+    color: white;
+    font-family: 'Lato', sans-serif;
+    padding: 30px;
+}
+
+.button{
+    background-color: var(--retrored);
+    color: white;
+}
+
+.button:hover{
+    color: var(--retroblue);
+}
+
+.panel-block:hover{
+    color: var(--retroblue);
+}
+
+.search-section {
+    width: 25%;
+    font-family: 'Roboto Flex', sans-serif;
+}
+
