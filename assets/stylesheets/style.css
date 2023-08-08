@@ -53,6 +53,8 @@ nav.panel{
 .five-day-forecast{
     margin-left: 10px;
     margin-right: 10px;
+    font-family: 'Roboto Flex', sans-serif;
+    
 }
 
 #forecast-title{
