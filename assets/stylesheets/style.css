@@ -8,7 +8,7 @@ https://colorhunt.co/palette/eb455ffcffe7bad7e92b3467 */
   } 
   
 body{
-    background-color: var(--retrotan);
+    background-color: var(--retrolightblue);
     color: var(--retroblue);
     font-family: 'Roboto Flex', sans-serif;
     height: 100vh;
@@ -32,12 +32,21 @@ body{
     color: var(--retroblue);
 }
 
+nav.panel{
+    background-color: var(--retrotan);
+}
+
+.panel-heading{
+    color: white;
+    background-color: var(--retrored);
+}
+
 .panel-block:hover{
     color: var(--retroblue);
 }
 
-.search-section {
-    width: 25%;
+.search-current-weather .column {
+    margin: 10px;
     font-family: 'Roboto Flex', sans-serif;
 }
 
