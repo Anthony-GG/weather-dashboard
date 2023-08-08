@@ -50,3 +50,14 @@ nav.panel{
     font-family: 'Roboto Flex', sans-serif;
 }
 
+.five-day-forecast{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#forecast-title{
+    background-color: var(--retrored);
+    color: white;
+    font-size: 30px;
+}
+
