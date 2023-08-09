@@ -23,10 +23,11 @@ body{
     padding: 30px;
 }
 
-.button{
+.button { 
     background-color: var(--retrored);
     color: white;
 }
+
 
 .button:hover{
     color: var(--retroblue);

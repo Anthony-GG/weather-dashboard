@@ -29,13 +29,12 @@
       <!-- FIRST COLUMN START - CITY SEARCH -->
       <div class="column is-one-third">
           <nav class="panel">
-            <p class="panel-heading">
+            <p class="panel-heading is is-flex">
               Cities
             </p>
-            <div class="panel-block">
-              <div class = "input-submit-buttons is-flex is-justify-content-start">
-                <input class="input" type="text" placeholder="City">
-              <p class="control has-icons-left">
+            <div class="panel-block is-flex is-justify-content-center">
+              <form id="searchInfo">
+                <input class="input" type="text" placeholder="City" id="cityInput">
                   <!-- State Options dropdown -->
                   <div class="control">
                     <div class="select">
@@ -51,10 +50,10 @@
                     </div>
                   </div>
                   <!-- Main Submit button -->
-                  <button class="button is-pulled-right">Submit</button>
+                  <button class="button" type="submit" id="searchSubmit">Submit</button>
                 </div>
-              </p>
-            </div>
+              </form>
+           
             
             <p class="panel-tabs">
               <a class="is-active">All</a>
