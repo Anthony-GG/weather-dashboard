@@ -50,6 +50,10 @@ nav.panel{
     font-family: 'Roboto Flex', sans-serif;
 }
 
+#currentWeatherAndTemp h3{
+    font-size: 30px;
+}
+
 .five-day-forecast{
     margin-left: 10px;
     margin-right: 10px;
