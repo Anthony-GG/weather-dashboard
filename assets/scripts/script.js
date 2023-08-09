@@ -35,14 +35,13 @@ mainInfo.addEventListener("submit", function(event){
     var country = country_options.value;
     console.log("Selected city: " + city + "\nSelected state: " + state + "\nSelected country: " + country);
 
-    //Countries populated via object conversion into for each function
+    //sets country value to country code rather than name
     Object.entries(countryList).forEach(countryObj => {
         const [key,value] = countryObj;
         if(value.name === country){
             country = value.code;
         }
     });
-
     setPageInfo(city, state, country);
 });
 
@@ -125,6 +124,13 @@ async function getCurrentWeather(currentCity, currentState, currentCountry) {
             return;
         }
 
+     //sets country value to country name rather than code
+     Object.entries(countryList).forEach(countryObj => {
+        const [key,value] = countryObj;
+        if(value.code === currentCountry){
+            currentCountry = value.name;
+        }
+    });
         //This section will add the city name to the webpage, manually overrides the Bulma CSS using Javascript
         city.textContent = currentCity + ", " + currentCountry;
         city.style.fontSize = "45px";
