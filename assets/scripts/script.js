@@ -31,8 +31,11 @@ setPageInfo();
 mainInfo.addEventListener("submit", function(event){
     event.preventDefault();
     var city = city_input.value;
+    city_input.value = "";
     var state = state_options.value;
+    state_options.value = "-";
     var country = country_options.value;
+    country_options.value = "-";
     console.log("Selected city: " + city + "\nSelected state: " + state + "\nSelected country: " + country);
 
     //sets country value to country code rather than name
@@ -75,6 +78,7 @@ async function setPageInfo(city, state, country){
     // country = "USA"
 
     getCurrentWeather(city, state, country);
+    getForecast(city, state, country);
 }
 
 
@@ -102,13 +106,11 @@ async function getCurrentWeather(currentCity, currentState, currentCountry) {
             throw new Error("Invalid request.")
             return;
         }
-
-        //This section will add the city name to the webpage, manually overrides the Bulma CSS using Javascript
-        city.textContent = currentCity + ", " + currentState;
-        city.style.fontSize = "45px";
+        //sets city text content on page if state is selected
+        city.textContent = weather_data.name + ", " + currentState;
+        city.style.fontSize = "45px";    
 
     } else {
-        console.log(currentCountry);
         var apiRequest = "http://api.openweathermap.org/data/2.5/weather?q=" + currentCity + "," + currentCountry + "&units=imperial&APPID=6ddb7b9eda44e747c0962325870a6579";
         var apiCall = await fetch(apiRequest);
         if(apiCall.status === "404") {
@@ -131,9 +133,9 @@ async function getCurrentWeather(currentCity, currentState, currentCountry) {
             currentCountry = value.name;
         }
     });
-        //This section will add the city name to the webpage, manually overrides the Bulma CSS using Javascript
-        city.textContent = currentCity + ", " + currentCountry;
-        city.style.fontSize = "45px";
+        //sets city text content on page if state is not selected, replacing with country
+        city.textContent = weather_data.name + ", " + currentCountry;
+        city.style.fontSize = "45px";    
     }
     } catch (e) {
         console.error(e);
@@ -156,4 +158,86 @@ async function getCurrentWeather(currentCity, currentState, currentCountry) {
 
     //This section will add the weather humidity 
     forecast_current_humid.textContent = "Humidity: " + Math.round(weather_data.main.humidity) + "%";
+}
+
+//PURPOSE: to fetch the OpenWeather API and use the information obtained from it to display on the web page
+//PARAMETERS: currentCity: current city, currentState: current state, and currentCountry: current country
+//RETURNS: NONE
+async function getForecast(currentCity, currentState, currentCountry) {
+        //If no info is currently loaded, displays nothing on page load
+        if(currentCity === undefined && currentState === undefined && currentCountry === undefined) {
+            return;
+        }
+        try{
+        //If statement that verifies if a state is selected and adjusts accordingly if that is not the case
+        if (currentState != "-"){
+            var apiRequest = "http://api.openweathermap.org/data/2.5/forecast?q=" + currentCity + "," + currentState + "," + currentCountry + "&units=imperial&APPID=6ddb7b9eda44e747c0962325870a6579";
+            var apiCall = await fetch(apiRequest);
+            console.log(apiCall);
+            var apiText = await apiCall.text();
+            var weather_data = JSON.parse(apiText);
+            console.log(weather_data);
+    
+            if(weather_data.cod === "404") {
+                console.log(weather_data.status.cod);
+                throw new Error("Invalid request.")
+                return;
+            }
+    
+        } else {
+            var apiRequest = "http://api.openweathermap.org/data/2.5/forecast?q=" + currentCity + "," + currentCountry + "&units=imperial&APPID=6ddb7b9eda44e747c0962325870a6579";
+            var apiCall = await fetch(apiRequest);
+            if(apiCall.status === "404") {
+                console.log(apiCall.status.cod);
+            }
+            var apiText = await apiCall.text();
+            var weather_data = JSON.parse(apiText);
+            console.log(weather_data);
+    
+            if(weather_data.cod === "404") {
+                console.log(weather_data.cod);
+                throw new Error("Invalid request.")
+                return;
+            }
+    
+         //sets country value to country name rather than code
+         Object.entries(countryList).forEach(countryObj => {
+            const [key,value] = countryObj;
+            if(value.code === currentCountry){
+                currentCountry = value.name;
+            }
+        });
+        }
+        } catch (e) {
+            console.error(e);
+            alert("Please provide valid inputs.");
+        }
+
+        var listNum = 5;
+        for(var i = 0; i<5; i++){
+            //Date for Five Day Forecast
+            var dailyWeatherData = weather_data.list[listNum]
+            var date = moment().add(i+1,'days');
+            document.getElementById("fDate" + i).textContent = date.format('dddd, MMMM Do, YYYY');
+
+            //Image for Five Day Forecast
+            var icon_link = "http://openweathermap.org/img/w/" + dailyWeatherData.weather[0].icon + ".png";
+            document.getElementById("fImg" + i).src = icon_link;
+            document.getElementById("fImg" + i).style.width = "100px";
+
+            //Temp for Five Day Forecast
+            document.getElementById("fTemp" + i).textContent = Math.round(dailyWeatherData.main.temp) + "\u00B0" + "F";
+
+            //Condition for Five Day Forecast
+            document.getElementById("fCondit" + i).textContent = "Condition: " + dailyWeatherData.weather[0].main;
+
+            //Wind for Five Day Forecast
+            document.getElementById("fWind" + i).textContent = "Wind Speeds: " + Math.round(dailyWeatherData.wind.speed) + " MPH";
+
+            //Humid for Five Day Forecast
+            document.getElementById("fHumid" + i).textContent = "Humidity: " + Math.round(dailyWeatherData.main.humidity) + "%";
+
+            listNum+=8;
+        }
+
 }
