@@ -343,7 +343,7 @@ async function getForecast(currentCity, currentState, currentCountry) {
             alert("Please provide valid inputs.");
         }
 
-        console.log(weather_data);
+        //Loops through all 5 days and adds the data to the screen for each, time for each day is approx. 5pm EST
         var listNum = 7;
         for(var i = 0; i<5; i++){
             //Date for Five Day Forecast
