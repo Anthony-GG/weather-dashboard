@@ -15,6 +15,9 @@ var mainInfo = document.getElementById("searchInfo")
 var submitButton = document.getElementById("searchSubmit")
 var historySelection = document.querySelector(".panel-block");
 
+//This is the DOM selector for the footer
+var footerEl = document.getElementById("footer");
+
 //API key for Open Weather API
 const OPENWEATHER_API_KEY = "6ddb7b9eda44e747c0962325870a6579";
 
@@ -273,6 +276,8 @@ async function getCurrentWeather(currentCity, currentState, currentCountry) {
         alert("Please provide valid inputs.");
     }
     
+
+
     //This section will create an icon link, create the icon, and then append it on the page in place
     var icon_link = "https://openweathermap.org/img/w/" + weather_data.weather[0].icon + ".png";
     forecast_current_icon.src = icon_link;

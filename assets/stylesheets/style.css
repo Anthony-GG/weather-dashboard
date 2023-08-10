@@ -12,6 +12,7 @@ body{
     color: var(--retroblue);
     font-family: 'Roboto Flex', sans-serif;
     height: 100vh;
+    position: relative;
 }
 
 
@@ -69,7 +70,7 @@ nav.panel{
 }
 
 footer{
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
     height: 3.5rem;
