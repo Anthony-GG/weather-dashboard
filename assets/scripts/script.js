@@ -33,7 +33,7 @@ if (shParse == null) {
   var searchHistoryList = shParse;
 }
 
-//localStorage.clear();
+localStorage.clear();
 console.log(searchHistoryList);
 
 
@@ -50,10 +50,10 @@ allA.addEventListener("click", function(event){
     searchHistoryList.forEach(history => {
         historyItem.push(history[0]);
     });
-    var popularItem = ["Hong Kong", "London", "New York", "Japan", "Paris", "Cleveland", "Boston"]
-    popularItem.forEach(popular => {
-        historyItem.push(popular);
-    });
+    // var popularItem = ["Hong Kong", "London", "New York", "Japan", "Paris", "Cleveland", "Boston"]
+    // popularItem.forEach(popular => {
+    //     historyItem.push(popular);
+    // });
 
     //PURPOSE: gets rid of duplicate values in the search history list
     //PARAMETERS: arr: an array with duplicates
@@ -85,14 +85,14 @@ popularA.addEventListener("click", function(event){
     document.getElementById("searchhistoryA").classList.remove("is-active");
     document.getElementById("historyPanel").replaceChildren();
 
-    var popularItem = ["Hong Kong", "London", "New York", "Japan", "Paris", "Cleveland", "Boston"]
+    // var popularItem = ["Hong Kong", "London", "New York", "Japan", "Paris", "Cleveland", "Boston"]
     
-    popularItem.forEach(item => {
-        var popularItem = document.createElement("a")
-        popularItem.textContent = item;
-        popularItem.classList.add("panel-block")
-        document.getElementById("historyPanel").append(popularItem);
-    });
+    // popularItem.forEach(item => {
+    //     var popularItem = document.createElement("a")
+    //     popularItem.textContent = item;
+    //     popularItem.classList.add("panel-block")
+    //     document.getElementById("historyPanel").append(popularItem);
+    // });
     
 });
 //START OF SEARCH HISTORY CATEGORY SEARCH BAR
@@ -136,8 +136,23 @@ searchhistoryA.addEventListener("click", function(event){
 //RETURNS: NONE
 document.getElementById("historyPanel").addEventListener("click", function(event){
     event.preventDefault();
-    console.log(this.closest.childNodes[0].textContent);
-    // setPageInfo(this.textContent);
+    //Finds the x and y position from the event and uses elementFromPoint to select the specific box
+    var xPos = event.clientX;
+    var yPos = event.clientY;
+    var selectedElement = document.elementFromPoint(xPos, yPos)
+    var cityName = selectedElement.textContent;
+    
+    var i = 0;
+    console.log(searchHistoryList);
+    while(i < searchHistoryList.length){
+        if(searchHistoryList[i][0] === cityName){
+            var stateName = searchHistoryList[i][1];
+            var countryName = searchHistoryList[i][2]
+            break;
+        } 
+        i++
+    }
+    setPageInfo(cityName, stateName, countryName);
 });
 
 //PURPOSE: to submit the selected information from the search section and processing
