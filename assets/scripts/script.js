@@ -231,7 +231,7 @@ async function getCurrentWeather(currentCity, currentState, currentCountry) {
     try{
     //If statement that verifies if a state is selected and adjusts accordingly if that is not the case
     if (currentState != "-"){
-        var apiRequest = "http://api.openweathermap.org/data/2.5/weather?q=" + currentCity + "," + currentState + "," + currentCountry + "&units=imperial&APPID=6ddb7b9eda44e747c0962325870a6579";
+        var apiRequest = "https://api.openweathermap.org/data/2.5/weather?q=" + currentCity + "," + currentState + "," + currentCountry + "&units=imperial&APPID=6ddb7b9eda44e747c0962325870a6579";
         var apiCall = await fetch(apiRequest);
         var apiText = await apiCall.text();
         var weather_data = JSON.parse(apiText);
@@ -245,7 +245,7 @@ async function getCurrentWeather(currentCity, currentState, currentCountry) {
         city.style.fontSize = "45px";    
 
     } else {
-        var apiRequest = "http://api.openweathermap.org/data/2.5/weather?q=" + currentCity + "," + currentCountry + "&units=imperial&APPID=6ddb7b9eda44e747c0962325870a6579";
+        var apiRequest = "https://api.openweathermap.org/data/2.5/weather?q=" + currentCity + "," + currentCountry + "&units=imperial&APPID=6ddb7b9eda44e747c0962325870a6579";
         var apiCall = await fetch(apiRequest);
         if(apiCall.status === "404") {
         }
@@ -274,7 +274,7 @@ async function getCurrentWeather(currentCity, currentState, currentCountry) {
     }
     
     //This section will create an icon link, create the icon, and then append it on the page in place
-    var icon_link = "http://openweathermap.org/img/w/" + weather_data.weather[0].icon + ".png";
+    var icon_link = "https://openweathermap.org/img/w/" + weather_data.weather[0].icon + ".png";
     forecast_current_icon.src = icon_link;
     forecast_current_icon.style.width = "85px";
 
@@ -302,7 +302,7 @@ async function getForecast(currentCity, currentState, currentCountry) {
         try{
         //If statement that verifies if a state is selected and adjusts accordingly if that is not the case
         if (currentState != "-"){
-            var apiRequest = "http://api.openweathermap.org/data/2.5/forecast?q=" + currentCity + "," + currentState + "," + currentCountry + "&units=imperial&APPID=6ddb7b9eda44e747c0962325870a6579";
+            var apiRequest = "https://api.openweathermap.org/data/2.5/forecast?q=" + currentCity + "," + currentState + "," + currentCountry + "&units=imperial&APPID=6ddb7b9eda44e747c0962325870a6579";
             var apiCall = await fetch(apiRequest);
             var apiText = await apiCall.text();
             var weather_data = JSON.parse(apiText);
@@ -313,7 +313,7 @@ async function getForecast(currentCity, currentState, currentCountry) {
             }
     
         } else {
-            var apiRequest = "http://api.openweathermap.org/data/2.5/forecast?q=" + currentCity + "," + currentCountry + "&units=imperial&APPID=6ddb7b9eda44e747c0962325870a6579";
+            var apiRequest = "https://api.openweathermap.org/data/2.5/forecast?q=" + currentCity + "," + currentCountry + "&units=imperial&APPID=6ddb7b9eda44e747c0962325870a6579";
             var apiCall = await fetch(apiRequest);
             if(apiCall.status === "404") {
             }
@@ -346,7 +346,7 @@ async function getForecast(currentCity, currentState, currentCountry) {
             document.getElementById("fDate" + i).textContent = date.format('dddd, MMMM Do, YYYY');
 
             //Image for Five Day Forecast
-            var icon_link = "http://openweathermap.org/img/w/" + dailyWeatherData.weather[0].icon + ".png";
+            var icon_link = "https://openweathermap.org/img/w/" + dailyWeatherData.weather[0].icon + ".png";
             document.getElementById("fImg" + i).src = icon_link;
             document.getElementById("fImg" + i).style.width = "100px";
 
