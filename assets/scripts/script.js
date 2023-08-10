@@ -33,7 +33,7 @@ if (shParse == null) {
   var searchHistoryList = shParse;
 }
 
-localStorage.clear();
+//localStorage.clear();
 console.log(searchHistoryList);
 
 
@@ -50,6 +50,7 @@ allA.addEventListener("click", function(event){
     searchHistoryList.forEach(history => {
         historyItem.push(history[0]);
     });
+    //FEATURE IN DEVELOPMENT
     // var popularItem = ["Hong Kong", "London", "New York", "Japan", "Paris", "Cleveland", "Boston"]
     // popularItem.forEach(popular => {
     //     historyItem.push(popular);
@@ -69,12 +70,12 @@ allA.addEventListener("click", function(event){
     }
     historyItem = removeDuplicates(historyItem);
     
-    historyItem.forEach(item => {
-        var historyItem = document.createElement("a")
-        historyItem.textContent = item;
-        historyItem.classList.add("panel-block")
-        document.getElementById("historyPanel").append(historyItem);
-    });
+    for(var i = 0; i < historyItem.length; i++){
+        var history = document.createElement("a")
+        history.textContent = historyItem[historyItem.length - i - 1];
+        history.classList.add("panel-block")
+        document.getElementById("historyPanel").append(history);
+    }
 
 });
 //START OF POPULAR SELECTOR CATEGORY SEARCH BAR
@@ -85,6 +86,7 @@ popularA.addEventListener("click", function(event){
     document.getElementById("searchhistoryA").classList.remove("is-active");
     document.getElementById("historyPanel").replaceChildren();
 
+    //FEATURE IN DEVELOPMENT
     // var popularItem = ["Hong Kong", "London", "New York", "Japan", "Paris", "Cleveland", "Boston"]
     
     // popularItem.forEach(item => {
@@ -122,13 +124,22 @@ searchhistoryA.addEventListener("click", function(event){
     }
     historyItem = removeDuplicates(historyItem);
     
-    historyItem.forEach(item => {
-        var historyItem = document.createElement("a")
-        historyItem.textContent = item;
-        historyItem.classList.add("panel-block")
-        document.getElementById("historyPanel").append(historyItem);
-    });
+    //Shows last 5 searchs in the search history option
+    for(var i = 0; i < 5; i++){
+        if (i < historyItem.length){
+            var history = document.createElement("a")
+            history.textContent = historyItem[historyItem.length - i - 1];
+            history.classList.add("panel-block")
+            document.getElementById("historyPanel").append(history);
+        }
+    }
+});
 
+//START OF CLEAR HISTORY BUTTON
+clearButton.addEventListener("click", function(event){
+    event.preventDefault();
+    localStorage.clear();
+    window.location.reload();
 });
 
 //PURPOSE: loads previous city data when history is clicked
@@ -176,9 +187,12 @@ mainInfo.addEventListener("submit", function(event){
         }
     });
 
-    searchHistoryList.push([city, state, country])
-    localStorage.setItem("searchHistoryList", JSON.stringify(searchHistoryList));
+    console.log(city + " " + state + " " + country);
 
+    if (city != "") {
+        searchHistoryList.push([city, state, country])
+        localStorage.setItem("searchHistoryList", JSON.stringify(searchHistoryList));
+    }
 
     setPageInfo(city, state, country);
 });
@@ -207,11 +221,6 @@ async function setStatesandCountries(){
 //PARAMETERS: input information from 'mainInfo' form event listner
 //RETURNS: NONE
 async function setPageInfo(city, state, country){
-
-    // city = "Boston"
-    // state = "MA"
-    // country = "USA"
-
     getCurrentWeather(city, state, country);
     getForecast(city, state, country);
 }
