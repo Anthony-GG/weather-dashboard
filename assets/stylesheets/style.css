@@ -60,11 +60,17 @@ nav.panel{
     margin-left: 10px;
     margin-right: 10px;
     font-family: 'Roboto Flex', sans-serif;
-    
+    display: flex;
 }
 
 #forecast-title{
     background-color: var(--retrored);
+    color: white;
+    font-size: 30px;
+}
+
+#forecast-footer{
+    background-color: var(--retrolightblue);
     color: white;
     font-size: 30px;
 }
