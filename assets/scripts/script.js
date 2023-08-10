@@ -343,7 +343,8 @@ async function getForecast(currentCity, currentState, currentCountry) {
             alert("Please provide valid inputs.");
         }
 
-        var listNum = 5;
+        console.log(weather_data);
+        var listNum = 1;
         for(var i = 0; i<5; i++){
             //Date for Five Day Forecast
             var dailyWeatherData = weather_data.list[listNum]
