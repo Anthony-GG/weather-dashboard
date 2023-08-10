@@ -13,6 +13,7 @@ var country_options = document.getElementById("countryOptions")
 
 var mainInfo = document.getElementById("searchInfo")
 var submitButton = document.getElementById("searchSubmit")
+var historySelection = document.querySelector(".panel-block");
 
 
 const OPENWEATHER_API_KEY = "6ddb7b9eda44e747c0962325870a6579";
@@ -24,6 +25,120 @@ var countryList = [{"name":"-", "code": "-"}, {"name": "Afghanistan", "code": "A
 setStatesandCountries();
 setPageInfo();
 
+//Local Storage array creation for saved searches
+shParse = JSON.parse(localStorage.getItem("searchHistoryList"));
+if (shParse == null) {
+  var searchHistoryList = [];
+} else {
+  var searchHistoryList = shParse;
+}
+
+//localStorage.clear();
+console.log(searchHistoryList);
+
+
+
+//START OF ALL SELECTOR CATEGORY SEARCH BAR
+allA.addEventListener("click", function(event){
+    event.preventDefault();
+    document.getElementById("allA").classList.add("is-active");
+    document.getElementById("popularA").classList.remove("is-active");
+    document.getElementById("searchhistoryA").classList.remove("is-active");
+    document.getElementById("historyPanel").replaceChildren();
+
+    var historyItem = [];
+    searchHistoryList.forEach(history => {
+        historyItem.push(history[0]);
+    });
+    var popularItem = ["Hong Kong", "London", "New York", "Japan", "Paris", "Cleveland", "Boston"]
+    popularItem.forEach(popular => {
+        historyItem.push(popular);
+    });
+
+    //PURPOSE: gets rid of duplicate values in the search history list
+    //PARAMETERS: arr: an array with duplicates
+    //RETURNS: unique: an arrau without duplicates
+    function removeDuplicates(arr) {
+        let unique = [];
+        arr.forEach(element => {
+            if (!unique.includes(element)) {
+                unique.push(element);
+            }
+        });
+        return unique;
+    }
+    historyItem = removeDuplicates(historyItem);
+    
+    historyItem.forEach(item => {
+        var historyItem = document.createElement("a")
+        historyItem.textContent = item;
+        historyItem.classList.add("panel-block")
+        document.getElementById("historyPanel").append(historyItem);
+    });
+
+});
+//START OF POPULAR SELECTOR CATEGORY SEARCH BAR
+popularA.addEventListener("click", function(event){
+    event.preventDefault();
+    document.getElementById("popularA").classList.add("is-active");
+    document.getElementById("allA").classList.remove("is-active");
+    document.getElementById("searchhistoryA").classList.remove("is-active");
+    document.getElementById("historyPanel").replaceChildren();
+
+    var popularItem = ["Hong Kong", "London", "New York", "Japan", "Paris", "Cleveland", "Boston"]
+    
+    popularItem.forEach(item => {
+        var popularItem = document.createElement("a")
+        popularItem.textContent = item;
+        popularItem.classList.add("panel-block")
+        document.getElementById("historyPanel").append(popularItem);
+    });
+    
+});
+//START OF SEARCH HISTORY CATEGORY SEARCH BAR
+searchhistoryA.addEventListener("click", function(event){
+    event.preventDefault();
+    document.getElementById("searchhistoryA").classList.add("is-active");
+    document.getElementById("popularA").classList.remove("is-active");
+    document.getElementById("allA").classList.remove("is-active");
+    document.getElementById("historyPanel").replaceChildren();
+
+    var historyItem = [];
+    searchHistoryList.forEach(history => {
+        historyItem.push(history[0]);
+    });
+
+    //PURPOSE: gets rid of duplicate values in the search history list
+    //PARAMETERS: arr: an array with duplicates
+    //RETURNS: unique: an arrau without duplicates
+    function removeDuplicates(arr) {
+        let unique = [];
+        arr.forEach(element => {
+            if (!unique.includes(element)) {
+                unique.push(element);
+            }
+        });
+        return unique;
+    }
+    historyItem = removeDuplicates(historyItem);
+    
+    historyItem.forEach(item => {
+        var historyItem = document.createElement("a")
+        historyItem.textContent = item;
+        historyItem.classList.add("panel-block")
+        document.getElementById("historyPanel").append(historyItem);
+    });
+
+});
+
+//PURPOSE: loads previous city data when history is clicked
+//PARAMETERS: a click on an 'a' element
+//RETURNS: NONE
+document.getElementById("historyPanel").addEventListener("click", function(event){
+    event.preventDefault();
+    console.log(this.closest.childNodes[0].textContent);
+    // setPageInfo(this.textContent);
+});
 
 //PURPOSE: to submit the selected information from the search section and processing
 //PARAMETERS: a click on the 'high score' section
@@ -45,6 +160,11 @@ mainInfo.addEventListener("submit", function(event){
             country = value.code;
         }
     });
+
+    searchHistoryList.push([city, state, country])
+    localStorage.setItem("searchHistoryList", JSON.stringify(searchHistoryList));
+
+
     setPageInfo(city, state, country);
 });
 
