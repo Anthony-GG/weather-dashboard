@@ -43,6 +43,17 @@ nav.panel{
     background-color: var(--retrored);
 }
 
+
+.panel-block input {
+    box-sizing: border-box;
+    width: fit-content;
+}
+
+.control {
+    box-sizing: border-box;
+    width: 65%;
+}
+
 .panel-block:hover{
     color: var(--retroblue);
 }
@@ -85,5 +96,3 @@ footer{
     align-items: center;
     background-color: var(--retroblue);
 }
-
-
