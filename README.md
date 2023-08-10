@@ -21,13 +21,13 @@ To look at the source code, open it, the CSS file and the Javascript file in a t
 ## Mockup:
 The following images shows the web application's appearance and functionality:
 <figure>
-    <img src="./assets/images/weather-dashboard-final.png" width="1000px" height="500px" alt="example of the weather dashboard showcasing the weather for Austin, TX with the Search History tab selected">
     <figcaption style="font-weight:500;">This is an example of the webpage showing the weather information for Austin, Texas. The search history tab is selected, and will only show the 5 most recent searches.</figcaption>
+    <img src="./assets/images/weather-dashboard-final.png" width="1000px" height="500px" alt="example of the weather dashboard showcasing the weather for Austin, TX with the Search History tab selected">
 </figure>
 
 <figure>
-    <img src="./assets/images/weather-dashboard-final-all-menu-selected.png" width="1000px" height="500px" alt="example of the weather dashboard showcasing the weather for Austin, TX with the All tab selected">
     <figcaption style="font-weight:500;">This is an example of the webpage showing the weather information for Austin, Texas again. However, this time the all tab is selected, which will show ALL the previous searches done on the page.<br>(excluding repeat searches)</figcaption>
+    <img src="./assets/images/weather-dashboard-final-all-menu-selected.png" width="1000px" height="500px" alt="example of the weather dashboard showcasing the weather for Austin, TX with the All tab selected">
 </figure>
 
 ## Credits
